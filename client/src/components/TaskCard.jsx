@@ -50,23 +50,6 @@ export default function TaskCard({ task, onStatusToggle, onEditClick, onDeleteCl
           <h4 className="task-title" title={title}>{title}</h4>
           <span className={`badge category-badge ${categoryClass}`}>{category}</span>
         </div>
-
-        <div className="task-actions">
-          <button 
-            className="action-btn edit-btn" 
-            onClick={() => onEditClick(task)}
-            title="Edit Task"
-          >
-            <Edit3 size={15} />
-          </button>
-          <button 
-            className="action-btn delete-btn" 
-            onClick={() => onDeleteClick(_id)}
-            title="Delete Task"
-          >
-            <X size={15} />
-          </button>
-        </div>
       </div>
 
       <div className="task-card-body">
@@ -85,9 +68,28 @@ export default function TaskCard({ task, onStatusToggle, onEditClick, onDeleteCl
           {isDueToday && <span className="due-alert-text">Today</span>}
         </div>
 
-        <div className={`badge priority-badge ${priorityClass}`}>
-          <span className="dot"></span>
-          <span>{priority}</span>
+        <div className="task-footer-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div className={`badge priority-badge ${priorityClass}`}>
+            <span className="dot"></span>
+            <span>{priority}</span>
+          </div>
+
+          <div className="task-actions" style={{ position: 'static', opacity: 1 }}>
+            <button 
+              className="action-btn edit-btn" 
+              onClick={() => onEditClick(task)}
+              title="Edit Task"
+            >
+              <Edit3 size={15} />
+            </button>
+            <button 
+              className="action-btn delete-btn" 
+              onClick={() => onDeleteClick(_id)}
+              title="Delete Task"
+            >
+              <X size={15} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
