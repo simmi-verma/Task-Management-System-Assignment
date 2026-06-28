@@ -13,6 +13,8 @@ import StatsPanel from './components/StatsPanel';
 import TaskCard from './components/TaskCard';
 import TaskModal from './components/TaskModal';
 
+const API_URL = import.meta.env.VITE_API_URL || '';
+
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [stats, setStats] = useState({
@@ -52,7 +54,7 @@ export default function App() {
       if (searchQuery) queryParams.append('q', searchQuery);
       if (sortBy) queryParams.append('sortBy', sortBy);
 
-      const response = await fetch(`/api/tasks?${queryParams.toString()}`);
+      const response = await fetch(`${API_URL}/api/tasks?${queryParams.toString()}`);
       if (!response.ok) throw new Error('Failed to retrieve tasks');
       const data = await response.json();
       setTasks(data);
@@ -64,7 +66,7 @@ export default function App() {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('/api/tasks/stats');
+      const response = await fetch(`${API_URL}/api/tasks/stats`);
       if (!response.ok) throw new Error('Failed to fetch stats');
       const data = await response.json();
       setStats(data);
@@ -92,7 +94,7 @@ export default function App() {
   // Create Task Handler
   const handleCreateTask = async (taskData) => {
     try {
-      const response = await fetch('/api/tasks', {
+      const response = await fetch(`${API_URL}/api/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(taskData)
@@ -118,7 +120,7 @@ export default function App() {
   const handleUpdateTask = async (taskData) => {
     if (!editTask) return;
     try {
-      const response = await fetch(`/api/tasks/${editTask._id}`, {
+      const response = await fetch(`${API_URL}/api/tasks/${editTask._id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(taskData)
@@ -144,7 +146,7 @@ export default function App() {
   // Status Toggle Quick Handler
   const handleStatusToggle = async (taskId, newStatus) => {
     try {
-      const response = await fetch(`/api/tasks/${taskId}`, {
+      const response = await fetch(`${API_URL}/api/tasks/${taskId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -171,7 +173,7 @@ export default function App() {
   const handleDeleteTask = async (taskId) => {
 
     try {
-      const response = await fetch(`/api/tasks/${taskId}`, {
+      const response = await fetch(`${API_URL}/api/tasks/${taskId}`, {
         method: 'DELETE'
       });
 
